@@ -1,0 +1,132 @@
+.recent-work-orders {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px;
+    border-bottom: 1px solid var(--color-border);
+
+    h3 {
+      margin: 0 0 5px;
+      color: var(--color-text);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+
+  &__view-all {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+
+    th,
+    td {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 12px;
+    }
+
+    th {
+      color: var(--color-text-muted);
+      background: var(--color-background);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    td {
+      color: var(--color-text);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: var(--color-background);
+    }
+  }
+
+  &__id {
+    font-weight: 600;
+  }
+
+  &__value {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 500;
+
+    &--in-progress {
+      color: var(--color-primary-hover);
+      background: #eff6ff;
+    }
+
+    &--pending {
+      color: var(--color-pending);
+      background: #fefce8;
+    }
+
+    &--completed {
+      color: #15803d;
+      background: #f0fdf4;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .recent-work-orders {
+    &__header {
+      align-items: flex-start;
+      padding: 16px;
+    }
+
+    &__table {
+      th,
+      td {
+        padding: 13px 14px;
+      }
+    }
+  }
+}
