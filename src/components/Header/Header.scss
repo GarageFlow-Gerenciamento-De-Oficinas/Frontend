@@ -1,0 +1,135 @@
+.dashboard-header {
+  display: flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 26px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+
+  &__search {
+    display: flex;
+    width: min(100%, 390px);
+    height: 40px;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border: 1px solid #e1e7ef;
+    border-radius: 6px;
+    color: #64748b;
+    background: #f8fafc;
+
+    input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      color: var(--color-text);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+
+      &::placeholder {
+        color: #7b8ba2;
+      }
+    }
+
+    &:focus-within {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgb(37 99 235 / 10%);
+    }
+  }
+
+  &__actions,
+  &__profile {
+    display: flex;
+    align-items: center;
+  }
+
+  &__actions {
+    gap: 20px;
+  }
+
+  &__notification {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 0;
+    border-radius: 6px;
+    color: #475569;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      background: #f1f5f9;
+    }
+  }
+
+  &__profile {
+    gap: 12px;
+    padding-left: 20px;
+    border-left: 1px solid var(--color-border);
+  }
+
+  &__avatar {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #293449;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__profile-info {
+    strong,
+    span {
+      display: block;
+    }
+
+    strong {
+      margin-bottom: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    span {
+      color: var(--color-text-muted);
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-header {
+    min-height: 62px;
+    padding: 10px;
+
+    &__search {
+      flex: 1;
+    }
+
+    &__actions {
+      gap: 4px;
+    }
+
+    &__profile {
+      padding-left: 8px;
+    }
+
+    &__profile-info {
+      display: none;
+    }
+  }
+}

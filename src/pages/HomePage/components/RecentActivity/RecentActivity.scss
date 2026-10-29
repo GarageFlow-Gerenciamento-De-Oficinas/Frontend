@@ -1,0 +1,126 @@
+.recent-activity {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+
+  &__header {
+    padding: 20px;
+    border-bottom: 1px solid var(--color-border);
+
+    h3 {
+      margin: 0 0 5px;
+      color: var(--color-text);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  &__icon {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    place-items: center;
+    border-radius: 7px;
+
+    &--work-order {
+      color: var(--color-primary);
+      background: #eff6ff;
+    }
+
+    &--approval {
+      color: var(--color-purple);
+      background: #f5f3ff;
+    }
+
+    &--completion {
+      color: #15803d;
+      background: #f0fdf4;
+    }
+
+    &--inventory {
+      color: #b45309;
+      background: #fffbeb;
+    }
+  }
+
+  &__content {
+    min-width: 0;
+    flex: 1;
+
+    p {
+      margin: 1px 0 5px;
+      color: var(--color-text);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    span {
+      color: var(--color-text-muted);
+      font-size: 11px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__time {
+    flex-shrink: 0;
+    padding-top: 2px;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    padding: 28px 20px;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .recent-activity {
+    &__header {
+      padding: 16px;
+    }
+
+    &__item {
+      gap: 10px;
+      padding: 14px 16px;
+    }
+
+    &__time {
+      font-size: 10px;
+    }
+  }
+}
