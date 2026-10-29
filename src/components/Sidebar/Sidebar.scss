@@ -1,0 +1,31 @@
+@media (max-width: 640px) {
+  .dashboard-sidebar {
+    width: 64px;
+    flex-basis: 64px;
+    padding-right: 8px;
+    padding-left: 8px;
+
+    &__brand {
+      justify-content: center;
+      padding: 0;
+    }
+
+    &__brand > span:last-child,
+    &__link > span,
+    &__footer > div:last-child {
+      display: none;
+    }
+
+    &__link {
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    &__footer {
+      justify-content: center;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}
