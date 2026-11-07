@@ -2,10 +2,22 @@ import { useState } from 'react'
 import { Eye, EyeOff, Wrench } from 'lucide-react'
 import './LoginPage.scss'
 import { useAuth } from '../../contexts/AuthContext/useAuth';
+import { useLocation, useNavigate } from 'react-router';
+import type { LoginLocationState } from '../../types/auth';
 
 function LoginPage() {
 
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as LoginLocationState | null;
+
+  const from = state?.from;
+
+  const redirectTo =
+    from?.pathname?.startsWith("/") && !from.pathname.startsWith("//")
+        ? `${from.pathname}${from.search ?? ""}${from.hash ?? ""}`
+        : "/";
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,6 +34,7 @@ function LoginPage() {
 
     try {
         await login({ email, password });
+        navigate(redirectTo, {replace: true});
     } catch (error) {
         setError(
             error instanceof Error ? error.message : "Ocorreu um erro inesperado ao entrar.",
