@@ -83,3 +83,19 @@ export async function refreshAccessToken(): Promise<string> {
 
     return data.access;
 }
+
+export async function logout(): Promise<void> {
+    const csrfToken = await getCsrfToken();
+
+    const response = await fetch(`${API_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "X-CSRFToken": csrfToken
+        },
+    });
+
+    if(!response.ok) {
+        throw new Error("Não foi possível encerrar a sessão no servidor.");
+    }
+}

@@ -1,15 +1,19 @@
 import type { ReactNode } from "react";
-import { getAccessToken } from "../../services/authService";
 import { Navigate } from "react-router";
+import { useAuth } from "../../contexts/AuthContext/useAuth";
 
 interface ProtectedRouteProps {
     children: ReactNode;
 }
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-    const token = getAccessToken();
+    const { isAuthenticated, isLoading } = useAuth();
 
-    if(!token) {
+    if (isLoading) {
+        return <div>Verificando sessão...</div>
+    }
+
+    if(!isAuthenticated) {
         return <Navigate to="/login" replace />
     }
 

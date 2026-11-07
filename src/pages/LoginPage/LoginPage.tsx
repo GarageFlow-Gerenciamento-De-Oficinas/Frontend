@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Eye, EyeOff, Wrench } from 'lucide-react'
 import './LoginPage.scss'
-import { useNavigate } from 'react-router'
-import { login, saveAccessToken } from '../../services/authService'
+import { useAuth } from '../../contexts/AuthContext/useAuth';
 
 function LoginPage() {
-  const navigate = useNavigate()
+
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,11 +21,7 @@ function LoginPage() {
     setError('')
 
     try {
-        const tokens = await login({ email, password })
-
-        saveAccessToken(tokens.access)
-
-        navigate('/', {replace: true})
+        await login({ email, password });
     } catch (error) {
         setError(
             error instanceof Error ? error.message : "Ocorreu um erro inesperado ao entrar.",
