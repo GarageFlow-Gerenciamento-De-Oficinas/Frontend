@@ -1,251 +1,519 @@
 # GarageFlow — Frontend
 
-Frontend da plataforma **GarageFlow**, um sistema de gerenciamento de oficinas mecânicas desenvolvido para centralizar e organizar operações, clientes, veículos e ordens de serviço.
+Frontend application for **GarageFlow**, a workshop management system designed for **Oficina Mecânica Avenida**.
 
-A aplicação foi desenvolvida utilizando React e TypeScript, com uma arquitetura baseada em componentes e separação de responsabilidades entre páginas, serviços, contextos e layouts.
+The application provides the user interface for managing workshop operations through a centralized platform, replacing fragmented workflows based on paper records, messaging applications, and spreadsheets.
 
-## Tecnologias
+GarageFlow is being developed as a portfolio project with a focus on maintainable architecture, reliable API integration, authentication, automated testing, and incremental product development.
 
-| Tecnologia | Finalidade |
-|---|---|
-| React 19 | Construção da interface |
-| TypeScript | Tipagem estática |
-| Vite | Servidor de desenvolvimento e build |
-| React Router | Gerenciamento de rotas |
-| Sass | Estilização |
-| Lucide React | Biblioteca de ícones |
-| Vitest | Testes automatizados |
-| React Testing Library | Testes de componentes |
-| MSW | Simulação de requisições HTTP |
-| ESLint | Análise estática de código |
-| Docker | Ambiente de desenvolvimento |
+---
 
-## Arquitetura
+## About the Project
 
-O frontend utiliza uma organização modular, separando componentes reutilizáveis, páginas, serviços de integração e gerenciamento de estado compartilhado.
+The frontend is responsible for the user-facing experience of GarageFlow and communicates with the backend through a REST API.
+
+The application is built with React and TypeScript, following a component-based architecture.
+
+Current functionality includes:
+
+- User authentication
+- Protected and public routes
+- User management interface
+- API communication
+- Automatic access token renewal
+
+The frontend is maintained as an independent application, allowing it to evolve separately from the backend.
+
+---
+
+## Architecture
+
+GarageFlow uses a separate frontend and backend architecture.
+
+```text
+┌──────────────────────────────┐
+│       React + TypeScript     │
+│           Frontend           │
+└──────────────┬───────────────┘
+               │
+               │ HTTP / JSON
+               ▼
+┌──────────────────────────────┐
+│       Django REST Framework  │
+│            Backend           │
+└──────────────┬───────────────┘
+               │
+               │ Django ORM
+               ▼
+┌──────────────────────────────┐
+│          PostgreSQL          │
+└──────────────────────────────┘
+```
+
+The frontend follows a modular structure, separating application routing, components, contexts, layouts, pages, services, styles, and shared types.
+
+API communication is centralized through service modules to avoid duplicating request and authentication logic throughout the application.
+
+---
+
+## Technology Stack
+
+### Core
+
+- React 19
+- TypeScript
+- Vite
+- React Router
+
+### Styling
+
+- Sass
+
+### Testing
+
+- Vitest
+- React Testing Library
+- Mock Service Worker (MSW)
+- jsdom
+
+### Development and Quality
+
+- Node.js 22
+- npm
+- ESLint
+- Docker
+- Docker Compose
+- Git
+
+---
+
+## Project Structure
+
+The frontend follows a feature-oriented structure with shared application infrastructure.
 
 ```text
 src/
 ├── app/
 │   └── AppRouter.tsx
+│
 ├── components/
 │   ├── Header/
 │   ├── Sidebar/
 │   ├── cards/
 │   ├── ProtectedRoute/
 │   └── PublicRoute/
+│
 ├── contexts/
 │   └── AuthContext/
+│
 ├── layouts/
 │   └── DashboardLayout/
+│
 ├── pages/
 │   ├── HomePage/
 │   ├── LoginPage/
 │   └── Users/
+│
 ├── services/
 │   ├── apiService.ts
 │   ├── authService.ts
 │   └── usersService.ts
+│
 ├── styles/
+│
 ├── test/
+│
 └── types/
 ```
 
-### Responsabilidades dos módulos
+### Main Responsibilities
 
-- **app:** configuração e organização das rotas da aplicação.
-- **components:** componentes reutilizáveis da interface.
-- **contexts:** gerenciamento de estados compartilhados, como autenticação.
-- **layouts:** estruturas visuais utilizadas para organizar as páginas.
-- **pages:** páginas e funcionalidades da aplicação.
-- **services:** comunicação com a API e centralização das operações de integração.
-- **styles:** variáveis e estilos globais.
-- **test:** configuração e infraestrutura dos testes automatizados.
-- **types:** definições de tipos e interfaces compartilhadas.
+| Directory | Responsibility |
+|---|---|
+| `app/` | Application routing and configuration |
+| `components/` | Reusable interface components |
+| `contexts/` | Shared application state |
+| `layouts/` | Page layout structures |
+| `pages/` | Application screens |
+| `services/` | API communication and application services |
+| `styles/` | Global and shared styling |
+| `test/` | Test configuration and shared testing utilities |
+| `types/` | Shared TypeScript definitions |
 
-## Pré-requisitos
+---
 
-Para executar o projeto localmente, é necessário possuir:
+## Requirements
 
-- Node.js 22 ou superior.
-- npm.
-- Docker e Docker Compose (opcional, para execução em container).
+To run the frontend locally, you need:
 
-## Configuração do ambiente
+- Node.js 22 or later
+- npm
+- Git
 
-Crie um arquivo `.env` na raiz do frontend, utilizando `.env.example` como referência.
+Docker and Docker Compose are optional when using the containerized development environment.
+
+---
+
+## Environment Configuration
+
+The frontend uses environment variables provided by Vite.
+
+Create a `.env` file in the frontend project root:
 
 ```env
-VITE_API_URL=http://localhost:8001/api
+VITE_API_URL=http://localhost:8000/api
 ```
 
-O Vite carrega automaticamente as variáveis definidas no arquivo `.env` localizado na raiz do projeto.
+`VITE_API_URL` defines the base URL used by the frontend to communicate with the backend.
 
-No ambiente Docker de desenvolvimento, o diretório do projeto é montado em `/app`, disponibilizando o arquivo `.env` para o Vite dentro do container.
+Vite automatically loads environment variables from `.env` files.
 
-> **Importante:** variáveis com prefixo `VITE_` são disponibilizadas no código executado pelo navegador. Não armazene senhas, tokens secretos ou outras informações sensíveis nesse arquivo.
+Only variables prefixed with `VITE_` are exposed to the frontend application. Never store secrets or private credentials in frontend environment variables.
 
-A variável `VITE_API_URL` define a URL base da API consumida pelo frontend.
+---
 
-Ajuste o endereço conforme o ambiente em que o backend estiver sendo executado.
+## Running Locally
 
-## Instalação e execução
+Clone the repository and navigate to the frontend directory:
 
-### Execução local
+```bash
+git clone <repository-url>
+cd garageflow/frontend
+```
 
-Instale as dependências:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Inicie o servidor de desenvolvimento:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Por padrão, o Vite disponibiliza a aplicação em:
+The frontend will be available at:
 
 ```text
 http://localhost:5173
 ```
 
-### Execução com Docker
+---
 
-O frontend possui configuração Docker independente do backend.
+## Running with Docker
 
-Para construir a imagem e iniciar o container:
+The frontend includes a Docker-based development environment.
+
+Build and start the application:
 
 ```bash
 docker compose up --build
 ```
 
-A aplicação ficará disponível em:
-
-```text
-http://localhost:5173
-```
-
-Para executar em segundo plano:
+Run in detached mode:
 
 ```bash
 docker compose up -d --build
 ```
 
-Para interromper os containers:
+Stop the containers:
 
 ```bash
 docker compose down
 ```
 
-O ambiente Docker está configurado para desenvolvimento, com montagem do código-fonte e volume persistente para as dependências do Node.js.
+The development server is exposed on port `5173`.
 
-## Autenticação e gerenciamento de sessão
+The Docker configuration uses a bind mount for the application source code and a named volume for `node_modules`, allowing development changes to be reflected without rebuilding the image for every source modification.
 
-O gerenciamento de autenticação é centralizado no `AuthContext`, responsável por disponibilizar o estado da sessão e as operações de login e logout para os componentes da aplicação.
+---
 
-A implementação utiliza:
+## Authentication
 
-- **Access token:** armazenado em `sessionStorage`.
-- **Refresh token:** armazenado em cookie `HttpOnly`.
-- **Renovação automática:** realizada quando uma requisição autenticada retorna HTTP 401.
-- **Proteção de rotas:** implementada por meio dos componentes `ProtectedRoute` e `PublicRoute`.
+GarageFlow uses JWT-based authentication through the Django backend.
 
-Ao iniciar a aplicação, o `AuthProvider` tenta restaurar a sessão utilizando o refresh token.
+The frontend implements a token management strategy that separates access token storage from refresh token storage.
 
-O serviço de API também possui controle de concorrência para evitar múltiplas tentativas simultâneas de renovação da sessão.
+### Token Storage
 
-## Comunicação com a API
+| Token | Storage |
+|---|---|
+| Access token | `sessionStorage` |
+| Refresh token | HttpOnly cookie managed by the backend |
 
-A comunicação HTTP é centralizada em `apiService.ts`, responsável por padronizar as requisições e tratar a autenticação.
+The access token is stored in the browser session and is removed when the local authentication state is cleared.
 
-Os serviços específicos, como `authService.ts` e `usersService.ts`, encapsulam as operações relacionadas aos respectivos domínios.
+The refresh token is stored in an HttpOnly cookie named `garageflow_refresh`. It is not directly accessible through JavaScript.
 
-Essa separação reduz o acoplamento entre a interface e a implementação da API.
+### Login Flow
 
-## Testes automatizados
+The authentication process is handled by `authService.ts`.
 
-O projeto utiliza Vitest, React Testing Library e MSW para validar o comportamento dos serviços, contextos e componentes.
+The login flow is:
 
-Os testes são executados em ambiente `jsdom`, que simula recursos do navegador durante a execução no Node.js.
+1. The frontend requests a CSRF token from the backend.
+2. The user submits their email and password.
+3. The frontend sends the credentials and CSRF token to the login endpoint.
+4. The backend validates the credentials.
+5. The backend returns an access token in the response body.
+6. The backend stores the refresh token in an HttpOnly cookie.
+7. The frontend stores the access token in `sessionStorage`.
 
-A configuração dos testes está centralizada em:
+### Automatic Access Token Renewal
 
-```text
-src/test/
-├── handlers.ts
-├── server.ts
-└── setup.ts
-```
+API communication is centralized through `apiService.ts`.
 
-Os testes são organizados próximos aos módulos que validam, facilitando sua manutenção.
+When an authenticated request receives a `401 Unauthorized` response, the frontend attempts to obtain a new access token using the refresh token cookie.
 
-### Executar os testes
+The process is:
 
-Modo interativo:
+1. An authenticated request receives a `401` response.
+2. The frontend checks whether another request has already renewed the access token.
+3. If a renewal is already in progress, the request waits for the shared Promise.
+4. Otherwise, the frontend requests a new access token.
+5. The new access token is stored in `sessionStorage`.
+6. The original request is retried using the new token.
+
+A shared Promise prevents multiple simultaneous requests from triggering independent token refresh operations.
+
+If token renewal fails, the local authentication data is cleared.
+
+### CSRF and Cookie Handling
+
+Authentication requests use `credentials: "include"` to allow the browser to send and receive cookies.
+
+The frontend obtains the CSRF token through:
+
+`GET /api/auth/csrf/`
+
+The token is then sent through the `X-CSRFToken` request header for protected authentication operations.
+
+### Route Protection
+
+The application uses dedicated route components:
+
+- `ProtectedRoute` restricts access to authenticated application areas.
+- `PublicRoute` handles routes intended for unauthenticated users.
+
+Authentication state is managed through the application authentication context.
+
+---
+
+## API Communication
+
+API communication is centralized through the service layer.
+
+### apiService.ts
+
+Responsible for:
+
+- Building API requests.
+- Setting request headers.
+- Attaching the access token to authenticated requests.
+- Handling unauthorized responses.
+- Refreshing expired access tokens.
+- Retrying requests after successful renewal.
+- Managing concurrent token refresh operations.
+
+### authService.ts
+
+Responsible for:
+
+- User login.
+- Access token storage.
+- Access token retrieval.
+- Local authentication cleanup.
+- CSRF token retrieval.
+- Access token renewal.
+- Logout requests.
+
+### usersService.ts
+
+Responsible for communication with user management endpoints.
+
+This separation keeps API-related responsibilities outside the presentation components and makes the application easier to maintain and test.
+
+---
+
+## Testing
+
+The frontend uses an automated testing stack composed of:
+
+- Vitest
+- React Testing Library
+- Mock Service Worker (MSW)
+- jsdom
+
+Tests cover application behavior, authentication, API communication, and protected routing.
+
+Current tested areas include:
+
+- Authentication context
+- API service
+- Authentication service
+- Login page
+- Protected routes
+- Public routes
+
+### Running Tests
+
+Run tests:
 
 ```bash
 npm run test
 ```
 
-Interface visual:
+Run tests with the interactive UI:
 
 ```bash
 npm run test:ui
 ```
 
-Executar todos os testes uma vez:
+Run tests once:
 
 ```bash
 npm run test:run
 ```
 
-### Categorias de testes
+Mock Service Worker is used to intercept API requests during tests, allowing frontend behavior to be validated without depending on a running backend.
 
-Atualmente, existem testes para:
+---
 
-- Serviços de comunicação com a API.
-- Serviços de autenticação.
-- Gerenciamento de sessão no `AuthProvider`.
-- Comportamento da página de login.
-- Proteção de rotas autenticadas.
-- Controle de acesso às rotas públicas.
+## Code Quality and Build
 
-O MSW é utilizado para interceptar e simular requisições HTTP durante os testes, permitindo validar diferentes respostas da API sem depender de um backend em execução.
+The project uses ESLint for code quality checks.
 
-## Qualidade de código e build
-
-### Executar o ESLint
+Run linting:
 
 ```bash
 npm run lint
 ```
 
-### Gerar build de produção
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-O comando `npm run build` realiza a verificação de tipos do TypeScript e gera os arquivos otimizados para produção no diretório `dist/`.
+The build command runs TypeScript project checks before generating the production assets with Vite.
 
-O projeto possui configuração para geração do build, mas o processo de deploy em produção ainda não está configurado.
+The generated application files are placed in the `dist/` directory.
 
-Para visualizar localmente o build gerado:
+Preview the production build locally:
 
 ```bash
 npm run preview
 ```
 
-## Integração com o Backend
+---
 
-O frontend e o backend do GarageFlow são projetos independentes, com configurações e ciclos de execução próprios.
+## Backend Integration
 
-A integração entre eles acontece por meio de uma API HTTP, cuja URL base é definida pela variável `VITE_API_URL`.
+The frontend communicates with the GarageFlow backend through its REST API.
 
-Para executar a aplicação integrada, certifique-se de que o backend esteja disponível e que a URL configurada corresponda ao endereço acessível a partir do ambiente de execução do frontend.
+By default, local development uses:
+
+| Application | URL |
+|---|---|
+| Frontend | `http://localhost:5173` |
+| Backend | `http://localhost:8000` |
+| Swagger UI | `http://localhost:8000/api/docs/` |
+
+The backend URL can be changed through the `VITE_API_URL` environment variable.
+
+The backend must also allow the frontend origin through its CORS configuration and support credentialed requests for cookie-based authentication.
+
+For backend setup, API documentation, and business rules, refer to the backend README.
 
 ---
 
-**GarageFlow** — Plataforma de gerenciamento de oficinas mecânicas.
+## Development Roadmap
+
+### Foundation
+
+- [x] React application
+- [x] TypeScript configuration
+- [x] Vite development environment
+- [x] Application routing
+- [x] Shared component structure
+- [x] Docker development environment
+
+### Authentication
+
+- [x] Login interface
+- [x] Authentication context
+- [x] Access token storage
+- [x] HttpOnly refresh cookie integration
+- [x] CSRF integration
+- [x] Automatic access token renewal
+- [x] Concurrent refresh handling
+- [x] Protected routes
+- [x] Public routes
+
+### User Management
+
+- [x] User management interface
+- [x] User service integration
+
+### Customers and Vehicles
+
+- [ ] Customer management interface
+- [ ] Vehicle management interface
+
+### Service Orders
+
+- [ ] Service Order workflow
+- [ ] Quote management
+- [ ] Service execution interface
+- [ ] Testing workflow
+- [ ] Vehicle delivery workflow
+
+### Inventory
+
+- [ ] Inventory management
+- [ ] Stock visualization
+- [ ] Parts reservation interface
+
+### Finance
+
+- [ ] Payment management
+- [ ] Financial adjustments
+- [ ] Balance visualization
+
+### Quality and Delivery
+
+- [x] Automated tests
+- [x] ESLint configuration
+- [x] Production build configuration
+- [ ] Frontend CI/CD pipeline
+- [ ] Automated deployment
+
+---
+
+## Documentation
+
+The frontend README documents the application architecture, development environment, authentication strategy, API integration, testing, and development workflow.
+
+The backend README contains the backend architecture, domain rules, API endpoints, database configuration, and backend development instructions.
+
+Both documents are maintained separately to keep the responsibilities of each application clear.
+
+---
+
+## Development
+
+GarageFlow is being developed by **Jean França** as a portfolio and software engineering project.
+
+The frontend is intended to demonstrate:
+
+- Component-based application architecture
+- Type-safe development with TypeScript
+- API integration
+- Authentication and route protection
+- Secure token handling
+- Automated access token renewal
+- Concurrent request handling
+- Automated frontend testing
+- Maintainable application structure
+- Incremental product development
