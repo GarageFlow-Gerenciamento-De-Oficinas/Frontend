@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, CarFront, ClipboardList, Boxes, CheckCircle2, Clock3, Wrench } from "lucide-react";
+import { LayoutDashboard, Users, CarFront, ClipboardList, Boxes, CheckCircle2, Clock3, Wrench, UserSearch } from "lucide-react";
 import type { SideBarProps } from "../../components/Sidebar/Sidebar";
 import type { WorkOrder } from "./components/RecentWorkOrders/RecentWorkOrders";
 import type { Appointment } from "./components/UpcomingAppointments/UpcomingAppointments";
@@ -11,6 +11,7 @@ export const navigationItems: SideBarProps = {
     items: [
         { label: 'Visão geral', path: '/', icon: LayoutDashboard },
         { label: 'Clientes', path: '/clients', icon: Users },
+        { label: 'Usuários', path: '/users', icon: UserSearch},
         { label: 'Veículos', path: '/vehicles', icon: CarFront },
         { label: 'Ordens de serviço', path: '/work-orders', icon: ClipboardList },
         { label: 'Estoque', path: '/inventory', icon: Boxes },
